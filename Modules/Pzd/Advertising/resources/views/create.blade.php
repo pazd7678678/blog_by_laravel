@@ -1,0 +1,86 @@
+@extends('Panel::layouts.master')
+
+@section('title', 'ساخت تبلیغ جدید')
+
+@section('content')
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card-box">
+                    <h4 class="m-t-0 header-title">ساخت تبلیغ جدید</h4>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="p-2">
+                                <form class="form-horizontal" role="form" method="POST" action="{{ route('advertisings.store') }}"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label" for="title">عنوان</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control @error('title') is-invalid @enderror"
+                                            value="{{ old('title') }}" id="title" name="title" placeholder="عنوان تبلیغ را وارد کنید">
+                                            @error('title')
+                                                <br>
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label" for="link">لینک تبلیغ (اجباری نیست)</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control @error('link') is-invalid @enderror"
+                                            value="{{ old('link') }}" id="link" name="link"
+                                            placeholder="لینک تبلیغ را وارد کنید">
+                                            @error('link')
+                                                <br>
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label" for="status">لوکیشن تبلیغ</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control @error('location') is-invalid @enderror" name="location">
+                                                <option selected>توکیشن تبلیغ را وارد کنید...</option>
+                                                @foreach (\Pzd\Advertising\Models\Advertising::$locations as $location)
+                                                    <option value="{{ $location }}">@lang($location)</option>
+                                                @endforeach
+                                            </select>
+                                            @error('location')
+                                                <br>
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label" for="image">عکس</label>
+                                        <div class="col-sm-10">
+                                            <input type="file" class="form-control @error('image') is-invalid @enderror"
+                                            id="image" name="image">
+                                            @error('image')
+                                                <br>
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group text-right mb-0">
+                                        <button class="btn btn-primary waves-effect waves-light mr-1" type="submit"> ایجاد</button>
+                                    </div>
+
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+
